@@ -1,0 +1,94 @@
+<div class="body-mapping">
+  <div class="feature-header">
+    <h3>
+      <span class="premium-badge">Premium</span>
+      AI Body Mapping
+    </h3>
+    <p class="feature-description">
+      Upload a photo to see how your tattoo design would look on your body
+    </p>
+  </div>
+
+  <ng-container *ngIf="(user$ | async) as user; else premiumLocked">
+    <div *ngIf="user?.isPremium" class="upload-area" 
+         [class.drag-over]="isDragging"
+         (dragover)="onDragOver($event)"
+         (dragleave)="isDragging = false"
+         (drop)="onDrop($event)">
+      <div *ngIf="!previewImage" class="upload-prompt">
+        <span class="upload-icon">📸</span>
+        <p>Drag & drop a photo or click to upload</p>
+        <small>Supports JPG, PNG (max 5MB)</small>
+        <input
+          type="file"
+          #fileInput
+          (change)="onFileSelected($event)"
+          accept="image/jpeg,image/png"
+          class="file-input"
+        >
+        <button class="upload-btn" (click)="fileInput.click()">
+          Select Photo
+        </button>
+      </div>
+
+      <div *ngIf="previewImage" class="preview-container">
+        <img [src]="previewImage" alt="Body preview" class="body-preview">
+        <div *ngIf="selectedDesign" class="tattoo-overlay"
+             [style.left.px]="overlayPosition.x"
+             [style.top.px]="overlayPosition.y"
+             [style.transform]="'scale(' + overlayScale + ') rotate(' + overlayRotation + 'deg)'"
+             (mousedown)="startDragging($event)"
+             (touchstart)="startDragging($event)">
+          <img [src]="selectedDesign.imageUrl" alt="Tattoo overlay">
+          <div class="overlay-controls">
+            <input type="range" [value]="overlayScale" (input)="updateScale($event)"
+                   min="0.1" max="2" step="0.1">
+            <button class="rotate-btn" (click)="rotateOverlay()">🔄</button>
+          </div>
+        </div>
+        <div class="preview-actions">
+          <button class="action-btn" (click)="resetImage()">New Photo</button>
+          <button class="action-btn save-btn" (click)="savePreview()">Save Preview</button>
+        </div>
+      </div>
+
+      <div class="mapping-tips">
+        <h4>Tips for best results:</h4>
+        <ul>
+          <li>Use good lighting and a clear background</li>
+          <li>Keep the body part centered in the photo</li>
+          <li>Avoid loose clothing around the target area</li>
+        </ul>
+      </div>
+    </div>
+
+    <div *ngIf="!user?.isPremium" class="premium-lock">
+      <div class="lock-content">
+        <span class="lock-icon">🔒</span>
+        <h4>Premium Feature</h4>
+        <p>Upgrade to try on tattoos virtually!</p>
+        <button class="upgrade-btn" (click)="showUpgradeModal = true">
+          Upgrade Now
+        </button>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #premiumLocked>
+    <div class="premium-lock">
+      <div class="lock-content">
+        <span class="lock-icon">🔒</span>
+        <h4>Premium Feature</h4>
+        <p>Upgrade to try on tattoos virtually!</p>
+        <button class="upgrade-btn" (click)="showUpgradeModal = true">
+          Upgrade Now
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<app-upgrade-modal 
+  *ngIf="showUpgradeModal" 
+  (close)="showUpgradeModal = false">
+</app-upgrade-modal>

@@ -1,0 +1,79 @@
+<div class="designer-container">
+  <h1 class="title">AI Tattoo Designer</h1>
+  <p class="subtitle">Transform your ideas into unique tattoo designs using AI</p>
+
+  <div class="content-grid">
+    <div class="preferences-section">
+      <h2 class="section-title">
+        <span class="icon">🎨</span> Design Preferences
+      </h2>
+      
+      <div class="form-group">
+        <label>Description</label>
+        <textarea 
+          [(ngModel)]="description" 
+          placeholder="Describe your desired tattoo design..."
+          rows="4"
+          class="description-input">
+        </textarea>
+      </div>
+
+      <div class="style-section">
+        <label>Style</label>
+        <div class="style-grid">
+          <button 
+            *ngFor="let style of styles" 
+            [class.selected]="selectedStyle === style"
+            (click)="selectStyle(style)"
+            class="style-button">
+            {{ style }}
+          </button>
+        </div>
+      </div>
+
+      <button class="generate-button" (click)="generateDesign()">
+        <span class="icon">✨</span> Generate New Design
+      </button>
+    </div>
+
+    <div class="preview-section">
+      <h2 class="section-title">Current Design</h2>
+      <div class="preview-area">
+        <p *ngIf="!currentDesign" class="placeholder-text">Your design will appear here</p>
+        <div *ngIf="currentDesign" class="design-details">
+          <img [src]="currentDesign.imageUrl" alt="Generated tattoo design">
+          <div class="design-info">
+            <p><strong>Style:</strong> {{ currentDesign.style }}</p>
+            <p><strong>Description:</strong> {{ currentDesign.description }}</p>
+            <p><strong>Generated:</strong> {{ currentDesign.timestamp | date:'short' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-body-mapping [selectedDesign]="currentDesign"></app-body-mapping>
+
+  <div class="designs-history">
+    <h2 class="section-title">Generated Designs</h2>
+    <div class="designs-grid">
+      <div *ngFor="let design of generatedDesigns" class="design-card" [class.active]="currentDesign?.id === design.id">
+        <img [src]="design.imageUrl" alt="Generated tattoo design" (click)="selectDesign(design)">
+        <div class="design-card-overlay">
+          <button class="view-btn" (click)="selectDesign(design)">View</button>
+          <button class="delete-btn" (click)="deleteDesign(design.id)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pro-tips">
+    <h2 class="section-title">Pro Tips</h2>
+    <ul>
+      <li>Be specific about size, style, and placement</li>
+      <li>Include reference elements you'd like to incorporate</li>
+      <li>Specify any cultural or symbolic meanings</li>
+      <li>Generate multiple variations to explore different possibilities</li>
+    </ul>
+  </div>
+</div>

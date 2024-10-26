@@ -1,0 +1,46 @@
+<div class="modal-overlay" (click)="close.emit()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="close.emit()">×</button>
+    
+    <div class="modal-header">
+      <h2>Choose Your Plan</h2>
+      <p>Select the perfect plan for your creative journey</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div *ngFor="let tier of pricingTiers" class="pricing-tier" [class.recommended]="tier.recommended">
+        <div *ngIf="tier.recommended" class="recommended-badge">Most Popular</div>
+        <h3>{{ tier.name }}</h3>
+        <div class="price">
+          <span class="amount">${{ tier.price }}</span>
+          <span class="period">/month</span>
+        </div>
+        <div class="credits">
+          <ng-container *ngIf="tier.credits > 0; else payAsYouGo">
+            <strong>{{ tier.credits }} credits</strong>/month
+          </ng-container>
+          <ng-template #payAsYouGo>
+            Pay as you go
+          </ng-template>
+        </div>
+        <ul class="features">
+          <li *ngFor="let feature of tier.features">
+            <span class="check">✓</span>
+            {{ feature }}
+          </li>
+        </ul>
+        <button 
+          class="select-plan-btn"
+          [class.primary]="tier.recommended"
+          (click)="selectPlan(tier)">
+          Select {{ tier.name }}
+        </button>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <p>All plans include access to our growing design library and basic features</p>
+      <small>Prices shown in USD. Billed monthly. Cancel anytime.</small>
+    </div>
+  </div>
+</div>

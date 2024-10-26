@@ -1,0 +1,61 @@
+<div class="signup-container">
+  <h1 class="title">Join Our Community</h1>
+  <p class="subtitle">Create unique tattoo designs with AI technology</p>
+
+  <div class="form-card">
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input 
+          id="username" 
+          type="text" 
+          formControlName="username"
+          class="form-input"
+          placeholder="Choose a username">
+        <div class="error-message" *ngIf="signupForm.get('username')?.touched && signupForm.get('username')?.invalid">
+          Username is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          id="email" 
+          type="email" 
+          formControlName="email"
+          class="form-input"
+          placeholder="Enter your email">
+        <div class="error-message" *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid">
+          Please enter a valid email
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          id="password" 
+          type="password" 
+          formControlName="password"
+          class="form-input"
+          placeholder="Create a password">
+        <div class="error-message" *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid">
+          Password must be at least 6 characters
+        </div>
+      </div>
+
+      <button type="submit" class="submit-button" [disabled]="!signupForm.valid">
+        Create Account
+      </button>
+    </form>
+
+    <div class="benefits">
+      <h3>Premium Benefits:</h3>
+      <ul>
+        <li>✨ Unlimited AI-generated designs</li>
+        <li>🎨 Access to all art styles</li>
+        <li>💾 Save and organize your designs</li>
+        <li>🚀 Priority rendering</li>
+      </ul>
+    </div>
+  </div>
+</div>

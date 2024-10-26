@@ -1,0 +1,34 @@
+<div class="gallery-container">
+  <h1 class="title">Tattoo Gallery</h1>
+  <p class="subtitle">Explore community-generated tattoo designs</p>
+
+  <div class="filters">
+    <button 
+      *ngFor="let filter of filters" 
+      [class.active]="currentFilter === filter"
+      (click)="setFilter(filter)"
+      class="filter-button">
+      {{ filter }}
+    </button>
+  </div>
+
+  <div class="tattoo-grid">
+    @for (tattoo of filteredTattoos; track tattoo.id) {
+      <div class="tattoo-card">
+        <div class="image-container">
+          <img [src]="tattoo.imageUrl" [alt]="tattoo.title">
+        </div>
+        <div class="card-content">
+          <h3>{{ tattoo.title }}</h3>
+          <p class="creator">By {{ tattoo.creator }}</p>
+          <div class="card-footer">
+            <span class="date">{{ tattoo.createdAt | date:'mediumDate' }}</span>
+            <button class="like-button" (click)="likeTattoo(tattoo)">
+              ❤️ {{ tattoo.likes }}
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

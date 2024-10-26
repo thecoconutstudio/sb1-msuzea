@@ -1,0 +1,214 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.modal-content {
+  background: #1a1a1a;
+  border-radius: 16px;
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  padding: 2rem;
+  color: #fff;
+  border: 1px solid #333;
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(90deg, #9c27b0, #e91e63);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  p {
+    color: #888;
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border: none;
+  background: none;
+  color: #888;
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.pricing-tier {
+  background: #2a2a2a;
+  border-radius: 12px;
+  padding: 2rem;
+  position: relative;
+  transition: transform 0.3s ease;
+  border: 1px solid #3a3a3a;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  &.recommended {
+    background: linear-gradient(145deg, #2a2a2a, #333);
+    border: 1px solid #9c27b0;
+  }
+}
+
+.recommended-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, #9c27b0, #e91e63);
+  padding: 0.25rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.price {
+  margin-bottom: 1rem;
+  
+  .amount {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .period {
+    color: #888;
+  }
+}
+
+.credits {
+  color: #888;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+
+  strong {
+    color: #e91e63;
+  }
+}
+
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    color: #888;
+    font-size: 0.9rem;
+    line-height: 1.4;
+
+    .check {
+      color: #4caf50;
+      font-weight: bold;
+    }
+  }
+}
+
+.select-plan-btn {
+  width: 100%;
+  padding: 0.875rem;
+  border-radius: 8px;
+  border: none;
+  background: #2a2a2a;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #3a3a3a;
+
+  &:hover {
+    background: #333;
+  }
+
+  &.primary {
+    background: linear-gradient(90deg, #9c27b0, #e91e63);
+    border: none;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+.modal-footer {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #333;
+
+  p {
+    color: #888;
+    margin-bottom: 0.5rem;
+  }
+
+  small {
+    color: #666;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 1.5rem;
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .price .amount {
+    font-size: 2rem;
+  }
+}
